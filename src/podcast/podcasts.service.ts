@@ -44,7 +44,6 @@ export class PodcastsService {
         podcasts,
       };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -54,14 +53,13 @@ export class PodcastsService {
     category,
   }: CreatePodcastInput): Promise<CreatePodcastOutput> {
     try {
-      const newPodcast = this.podcastRepository.create({ title, category });
+      const newPodcast = await this.podcastRepository.create({ title, category });
       const { id } = await this.podcastRepository.save(newPodcast);
       return {
         ok: true,
         id,
       };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -83,7 +81,6 @@ export class PodcastsService {
         podcast,
       };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -97,7 +94,6 @@ export class PodcastsService {
       await this.podcastRepository.delete({ id });
       return { ok };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -139,7 +135,6 @@ export class PodcastsService {
         episodes: podcast.episodes,
       };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -165,7 +160,6 @@ export class PodcastsService {
         episode,
       };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -180,7 +174,7 @@ export class PodcastsService {
       if (!ok) {
         return { ok, error };
       }
-      const newEpisode = this.episodeRepository.create({ title, category });
+      const newEpisode = await this.episodeRepository.create({ title, category });
       newEpisode.podcast = podcast;
       const { id } = await this.episodeRepository.save(newEpisode);
       return {
@@ -188,7 +182,6 @@ export class PodcastsService {
         id,
       };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -208,7 +201,6 @@ export class PodcastsService {
       await this.episodeRepository.delete({ id: episode.id });
       return { ok: true };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }
@@ -230,7 +222,6 @@ export class PodcastsService {
       await this.episodeRepository.save(updatedEpisode);
       return { ok: true };
     } catch (e) {
-      console.log(e);
       return this.InternalServerErrorOutput;
     }
   }

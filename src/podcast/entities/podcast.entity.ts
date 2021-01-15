@@ -25,6 +25,6 @@ export class Podcast extends CoreEntity {
   rating: number;
 
   @OneToMany(() => Episode, episode => episode.podcast)
-  @Field(type => [Episode])
-  episodes: Episode[];
+  @Field(type => [Episode], {nullable:true})
+  episodes?: Episode[];
 }
